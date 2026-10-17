@@ -12414,55 +12414,63 @@ var qrcode = function() {
 </script>
 <style>
 :root{
-  --bg:#EEF2F8; --surface:#FFFFFF; --ink:#13203A; --muted:#5C6B87; --line:#D9E0EC;
-  --accent:#2D5BFF; --accent-ink:#FFFFFF; --digit:#2D5BFF; --sym:#E4572E; --ok:#1A9E6B; --err:#C8352B;
-  --chip:#E6ECFA;
+  --maroon:#7D1F3C; --maroon-deep:#5A1530; --gold:#C68A3D;
+  --bg:#FBF3EA; --surface:#FFFFFF; --ink:#2B1117; --muted:#8B6672; --line:#F0DEE1; --chip:#F7EAE1;
+  --accent:var(--maroon); --accent-ink:#FFFFFF; --digit:#A62752; --sym:#A3650F; --ok:#2F7D5A; --err:#B23A3A;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0C1424; --surface:#14203A; --ink:#E8EEFB; --muted:#8FA0C2; --line:#25345A;
-    --accent:#6A8BFF; --accent-ink:#0C1424; --digit:#7C9BFF; --sym:#FF8A63; --ok:#3DD39B; --err:#FF7A70; --chip:#1C2B4D;
+    --maroon:#C24B72; --maroon-deep:#8A3254; --gold:#E0AD6A;
+    --bg:#1C0E14; --surface:#2A1620; --ink:#F3E3E8; --muted:#C79AA8; --line:#3D2230; --chip:#3D2230;
+    --accent:var(--maroon); --accent-ink:#2B1117; --digit:#F092AE; --sym:#E3A868; --ok:#55C290; --err:#FF8A80;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0C1424; --surface:#14203A; --ink:#E8EEFB; --muted:#8FA0C2; --line:#25345A;
-  --accent:#6A8BFF; --accent-ink:#0C1424; --digit:#7C9BFF; --sym:#FF8A63; --ok:#3DD39B; --err:#FF7A70; --chip:#1C2B4D;
+  --maroon:#C24B72; --maroon-deep:#8A3254; --gold:#E0AD6A;
+  --bg:#1C0E14; --surface:#2A1620; --ink:#F3E3E8; --muted:#C79AA8; --line:#3D2230; --chip:#3D2230;
+  --accent:var(--maroon); --accent-ink:#2B1117; --digit:#F092AE; --sym:#E3A868; --ok:#55C290; --err:#FF8A80;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Manrope,system-ui,sans-serif;min-height:100vh}
-main{max-width:640px;margin:0 auto;padding:28px 20px 56px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.brand{display:flex;align-items:center;gap:10px;font:700 15px Manrope,sans-serif}
-.brand svg{width:26px;height:26px;color:var(--accent)}
-.icon-btn{background:var(--surface);border:1px solid var(--line);color:var(--ink);width:40px;height:40px;border-radius:12px;cursor:pointer;display:grid;place-items:center}
-h1{font:800 clamp(34px,8vw,52px)/1.02 "Bricolage Grotesque",Manrope,sans-serif;letter-spacing:-.025em;margin:0 0 12px}
-.lead{color:var(--muted);margin:0 0 28px;max-width:46ch}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--maroon)}
+.band{background:linear-gradient(160deg,var(--maroon),var(--maroon-deep));border-radius:0 0 36px 36px;padding-top:env(safe-area-inset-top,0px)}
+.band-inner{max-width:640px;margin:0 auto;padding:22px 20px 40px;color:#fff}
+.band header{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+.band .brand{display:flex;align-items:center;gap:10px;font:700 15px Manrope,sans-serif;color:#fff}
+.icon-circle{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;flex:none}
+.icon-circle svg{width:18px;height:18px;color:#fff}
+.icon-btn{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.band h1{color:#fff;font:800 clamp(32px,7.6vw,48px)/1.04 "Bricolage Grotesque",Manrope,sans-serif;letter-spacing:-.02em;margin:0 0 12px}
+.band .lead{color:rgba(255,255,255,.84);margin:0;max-width:46ch}
+main.content{max-width:640px;margin:-26px auto 0;padding:0 20px 56px;position:relative}
 button{font:inherit}
-button:focus-visible,.drop:focus-visible,.icon-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.drop{display:block;border:2px dashed var(--line);background:var(--surface);border-radius:22px;padding:34px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
-.drop.over{border-color:var(--accent);background:var(--chip)}
-.drop svg{width:44px;height:44px;color:var(--accent);margin-bottom:8px}
+button:focus-visible,.drop:focus-visible,.icon-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.drop{display:block;border:1px solid var(--line);background:var(--surface);border-radius:24px;padding:30px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;box-shadow:0 14px 30px -18px rgba(90,21,48,.35)}
+.drop.over{border-color:var(--maroon);background:var(--chip)}
+.drop .icon-circle{width:56px;height:56px;margin:0 auto 12px;background:var(--chip)}
+.drop .icon-circle svg{width:26px;height:26px;color:var(--maroon)}
 .drop strong{display:block;font:700 18px "Bricolage Grotesque",Manrope,sans-serif}
 .drop span{color:var(--muted);font-size:14px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-.btn{border:0;background:var(--accent);color:var(--accent-ink);font-weight:700;padding:11px 18px;border-radius:12px;cursor:pointer}
+.btn{border:0;background:var(--maroon);color:var(--accent-ink);font-weight:700;padding:12px 20px;border-radius:999px;cursor:pointer}
 .btn.ghost{background:var(--chip);color:var(--ink)}
 #file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .status{margin-top:16px;font-size:14px;min-height:22px;color:var(--muted)}
 .status.err{color:var(--err)}
 #result{margin-top:28px;display:none}
-.sticker{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.sticker .top{display:flex;gap:16px;align-items:center;padding:18px 20px;border-bottom:2px dashed var(--line)}
-.thumb{width:76px;height:76px;border-radius:12px;object-fit:cover;border:1px solid var(--line);background:var(--chip);flex:none}
+.sticker{background:var(--surface);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 18px 40px -24px rgba(90,21,48,.4)}
+.sticker .top{display:flex;gap:16px;align-items:center;padding:20px;background:linear-gradient(160deg,var(--maroon),var(--maroon-deep))}
+.thumb{width:72px;height:72px;border-radius:16px;object-fit:cover;border:2px solid rgba(255,255,255,.5);background:#fff;flex:none}
 .net{min-width:0}
-.net small,.row small{display:block;color:var(--muted);font-size:13px}
-.net b{display:block;font:700 22px/1.2 "Bricolage Grotesque",Manrope,sans-serif;overflow-wrap:anywhere}
+.net small{color:rgba(255,255,255,.78)}
+.row small{display:block;color:var(--muted);font-size:13px}
+.net b{display:block;font:700 22px/1.2 "Bricolage Grotesque",Manrope,sans-serif;overflow-wrap:anywhere;color:#fff}
 .row{padding:18px 20px;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:0}
 .pw{font:700 clamp(22px,6.4vw,34px)/1.35 "JetBrains Mono",ui-monospace,Menlo,monospace;letter-spacing:.04em;overflow-wrap:anywhere;word-break:break-all;margin:6px 0 12px}
@@ -12471,7 +12479,7 @@ button:focus-visible,.drop:focus-visible,.icon-btn:focus-visible{outline:3px sol
 .legend{color:var(--muted);font-size:13px;margin:0 0 12px}
 .legend .d{color:var(--digit);font-weight:700}.legend .s{color:var(--sym);font-weight:700}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{background:var(--chip);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
+.chip{background:var(--chip);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;color:var(--maroon)}
 .btns{display:flex;gap:8px;flex-wrap:wrap}
 .raw{font:500 13px/1.5 "JetBrains Mono",ui-monospace,monospace;color:var(--muted);overflow-wrap:anywhere;margin:6px 0 0}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:.2s}
@@ -12480,23 +12488,23 @@ footer{margin-top:36px;color:var(--muted);font-size:13px;display:flex;gap:8px;al
 footer svg{width:16px;height:16px;flex:none;color:var(--ok)}
 .meter{height:6px;background:var(--chip);border-radius:9px;margin:14px 0 6px;overflow:hidden}.meter i{display:block;height:100%;width:0;transition:width .3s}
 #extra .row{border-bottom:1px solid var(--line)}
-#qrOut img{width:168px;height:168px;image-rendering:pixelated;border-radius:12px;border:1px solid var(--line);background:#fff;display:block;margin:10px 0}
+#qrOut img{width:168px;height:168px;image-rendering:pixelated;border-radius:16px;border:1px solid var(--line);background:#fff;display:block;margin:10px 0}
 details summary{cursor:pointer;font-weight:700}details ol{margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:14px}details li{margin-bottom:6px}
 #camBox{margin-top:14px;text-align:center}#camBox video{width:100%;max-height:320px;border-radius:18px;background:#000;object-fit:cover;margin-bottom:10px}
-.saved{margin-top:32px}.saved h2{font:700 22px "Bricolage Grotesque",Manrope,sans-serif;margin:0 0 10px}
-.saved input{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;margin-bottom:10px}
-.saved ul{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:18px}
-.saved li{display:flex;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}.saved li:last-child{border:0}
+.saved{margin-top:32px}.saved h2{font:700 22px "Bricolage Grotesque",Manrope,sans-serif;margin:0 0 10px;color:var(--ink)}
+.saved input{width:100%;padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;margin-bottom:10px}
+.saved ul{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:20px}
+.saved li{display:flex;gap:8px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}.saved li:last-child{border:0}
 .saved li div{flex:1;min-width:0}.saved li b{display:block;overflow-wrap:anywhere}.saved li span{font:500 13px "JetBrains Mono",ui-monospace,monospace;color:var(--muted);cursor:pointer}
-.mini{border:0;background:var(--chip);color:var(--ink);border-radius:9px;padding:7px 11px;font-weight:600;font-size:13px;cursor:pointer}
+.mini{border:0;background:var(--chip);color:var(--maroon);border-radius:999px;padding:7px 12px;font-weight:700;font-size:13px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<main>
+<div class="band"><div class="band-inner">
   <header>
     <div class="brand">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0"/><path d="M5.5 12.4a10 10 0 0 1 13 0"/><path d="M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></svg>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0"/><path d="M5.5 12.4a10 10 0 0 1 13 0"/><path d="M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></svg></div>
       Wi-Fi QR Reader
     </div>
     <button class="icon-btn" id="theme" aria-label="Switch theme">
@@ -12506,9 +12514,11 @@ details summary{cursor:pointer;font-weight:700}details ol{margin:10px 0 0;paddin
 
   <h1>Drop a Wi-Fi QR code. Get the password.</h1>
   <p class="lead">Upload a screenshot or photo of a Wi-Fi QR code and the network name and password appear right away.</p>
+  </div></div>
 
+  <main class="content">
   <label class="drop" id="drop" for="file" tabindex="0">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg>
+    <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg></div>
     <strong>Drop an image here</strong>
     <span>or tap to choose a file. You can also paste with Ctrl+V.</span>
   </label>
